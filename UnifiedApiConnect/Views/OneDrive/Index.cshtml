@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+@model Dictionary<string,string>
+
+<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
+<script type="text/javascript">
+  function launchOneDrivePicker(){
+      var odOptions = {
+          clientId: "d3a0b50e-6d9d-47d0-8a59-a34c89d28d6f",
+          action: "share",
+          multiSelect: true,
+          advanced: {},
+          success: function (files) {              
+              for (i = 0; i < files.value.length; i++) {
+                  $("#fileslist").append("<li><a target='_blank' href='" + files.value[i].webUrl + "'>" + files.value[i].name + "</a></li>");
+              }
+
+          },
+          cancel: function () { /* cancel handler */ },
+          error: function (e) { /* error handler */ }
+      }
+    OneDrive.open(odOptions);
+  }
+</script>
+
+
+<h2>Index</h2>
+
+<button onClick="launchOneDrivePicker()">Open from OneDrive</button>
+<br /><br />
+
+<ul id="fileslist">
+    @foreach (string name in Model.Keys)
+    {
+        <li><a target="_blank" href="@Model[name]">@name</a> @Html.ActionLink("Download","Download",new { id= Model[name], fileName=@name}) @Html.ActionLink("Send", "SendMessageSubmit", "Message", new { Name= "przemyslaw.walkowski@snpgroup.com", Address="przemyslaw.walkowski@snpgroup.com", ItemId=Model[name], ItemName=name },null )</li> 
+    }
+</ul>
+
