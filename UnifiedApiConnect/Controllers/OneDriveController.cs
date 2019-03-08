@@ -20,7 +20,6 @@ namespace UnifiedApiConnect.Controllers
             {
                 wc.Headers[HttpRequestHeader.Authorization] = new AuthenticationHeaderValue("Bearer", (string)Session[SessionKeys.Login.AccessToken]).ToString();
                 string jsonResul = wc.DownloadString("https://graph.microsoft.com/v1.0/me/drive/items/01TN5TMT2DJFLQXWIAKFBIGDWTTCAXOFU7/children");
-                //string jsonResul = wc.DownloadString("https://graph.microsoft.com/v1.0/me/");
 
                 dynamic data = System.Web.Helpers.Json.Decode(jsonResul);
                 
