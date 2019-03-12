@@ -65,7 +65,6 @@ namespace UnifiedApiConnect.Helpers
                 {
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                    var f = JsonConvert.SerializeObject(sendMessageRequest);
                     request.Content = new StringContent(JsonConvert.SerializeObject(sendMessageRequest), Encoding.UTF8, "application/json");
                     using (HttpResponseMessage response = await client.SendAsync(request))
                     {

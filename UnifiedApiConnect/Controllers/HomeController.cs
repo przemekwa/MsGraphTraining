@@ -39,7 +39,7 @@ namespace UnifiedApiConnect.Controllers
             
             var authContext = new AuthenticationContext(Settings.AzureADAuthority);
 
-            // Generate the parameterized URL for Azure login.
+           
             Uri authUri = authContext.GetAuthorizationRequestURL(
                 Settings.O365UnifiedAPIResource, 
                 Settings.ClientId,
@@ -47,7 +47,7 @@ namespace UnifiedApiConnect.Controllers
                 UserIdentifier.AnyUser, 
                 null);
             
-            // Redirect the browser to the login page, then come back to the Authorize method below.
+          
             return Redirect(authUri.ToString());
         }
 
@@ -56,11 +56,11 @@ namespace UnifiedApiConnect.Controllers
             var authContext = new AuthenticationContext(Settings.AzureADAuthority);
 
            
-            // Get the token.
+        
             var authResult = await authContext.AcquireTokenByAuthorizationCodeAsync(
-                Request.Params["code"],                                         // the auth 'code' parameter from the Azure redirect.
-                loginRedirectUri,                                               // same redirectUri as used before in Login method.
-                new ClientCredential(Settings.ClientId, Settings.ClientSecret), // use the client ID and secret to establish app identity.
+                Request.Params["code"],                                        
+                loginRedirectUri,                                               
+                new ClientCredential(Settings.ClientId, Settings.ClientSecret), 
                 Settings.O365UnifiedAPIResource);
 
             // Save the token in the session.
@@ -74,32 +74,3 @@ namespace UnifiedApiConnect.Controllers
         }
     }
 }
-
-//********************************************************* 
-// 
-//O365-AspNetMVC-Unified-API-Connect, https://github.com/OfficeDev/O365-AspNetMVC-Unified-API-Connect
-//
-//Copyright (c) Microsoft Corporation
-//All rights reserved. 
-//
-// MIT License:
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// ""Software""), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
-
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// 
-//********************************************************* 
